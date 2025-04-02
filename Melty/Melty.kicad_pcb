@@ -4463,7 +4463,7 @@
 				)
 			)
 		)
-		(property "Value" "50k"
+		(property "Value" "51k"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "b1215f68-91b5-49be-903c-81fcf1e6bb14")
@@ -4801,7 +4801,7 @@
 		)
 		(fp_arc
 			(start 8.883636 8.56)
-			(mid 8.325677 9.90704)
+			(mid 8.325678 9.907043)
 			(end 6.978636 10.465)
 			(stroke
 				(width 0.1)
@@ -4812,7 +4812,7 @@
 		)
 		(fp_arc
 			(start 6.978636 -10.49)
-			(mid 8.325671 -9.932036)
+			(mid 8.325674 -9.932037)
 			(end 8.883636 -8.585)
 			(stroke
 				(width 0.1)
@@ -4823,7 +4823,7 @@
 		)
 		(fp_arc
 			(start 3.997636 -12)
-			(mid 4.351186 -11.853551)
+			(mid 4.351166 -11.853541)
 			(end 4.497636 -11.5)
 			(stroke
 				(width 0.127)
@@ -5714,7 +5714,7 @@
 		(path "/0b5ef9f3-d9a2-4f87-82da-c04ff3e45fa6")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start -0.65 1.56)
 			(end 0 1.56)
@@ -5987,7 +5987,7 @@
 		(path "/5ed254e2-9a89-46b0-a5a9-427050005969")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start 0.146267 0.51)
 			(end -0.146267 0.51)
@@ -7362,7 +7362,7 @@
 		(path "/5ff199f6-c099-495a-a21b-500be799f34a")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start 0.146267 0.51)
 			(end -0.146267 0.51)
@@ -8563,7 +8563,7 @@
 		(path "/9a126863-175f-4277-a782-409096ebf756")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start 0.65 -1.56)
 			(end 0 -1.56)
@@ -10051,7 +10051,7 @@
 		(path "/52274c75-057e-4f7c-a63a-3f60d7dfa0d4")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start 0.146267 -0.51)
 			(end -0.146267 -0.51)
@@ -10586,7 +10586,7 @@
 		(path "/61d545dc-ceab-42e1-99a6-aa007a8590c9")
 		(sheetname "Root")
 		(sheetfile "Melty.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(fp_line
 			(start 0.146267 0.51)
 			(end -0.146267 0.51)

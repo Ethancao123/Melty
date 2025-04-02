@@ -1,8 +1,8 @@
 #include <AlfredoCRSF.h>
 #include <HardwareSerial.h>
 
-#define PIN_RX D7
-#define PIN_TX D6
+#define PIN_RX D6
+#define PIN_TX D7
 
 #define PIN_SNS_VIN 1
 

@@ -36,7 +36,7 @@ static void sendBattTelem(float voltage, float current, float capacity, float re
 
 void printChannels()
 {
-  for (int ChannelNum = 1; ChannelNum <= 16; ChannelNum++)
+  for (int ChannelNum = 1; ChannelNum <= 8; ChannelNum++)
   {
     Serial.print(crsf.getChannel(ChannelNum));
     Serial.print(", ");

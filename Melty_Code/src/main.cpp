@@ -2,7 +2,7 @@
 #define FASTLED_RMT_BUILTIN_DRIVER 1
 #include <FastLED.h>
 #include "SparkFun_LIS331.h"
-#include <SPI.h>
+#include "ESP32_SoftWire.h"
 
 #include "DShotESC.h"
 
@@ -28,8 +28,10 @@ DShotESC esc1;
 
 LIS331 xl;
 int16_t x, y, z;
-
+SoftWire Wire;
 bool failsafe = false;
+
+bool firstLoop = true;
 
 enum States {
   FAILSAFE,
@@ -41,7 +43,7 @@ enum States {
 States state = FAILSAFE;
 
 void setup() {
-  enableLoopWDT();
+  // enableLoopWDT();
   #ifdef DEBUG
   delay(1000);
   Serial.begin(115200);
@@ -57,32 +59,36 @@ void setup() {
   x = 0;
   y = 0;
   z = 0;
+
+  digitalWrite(XL_MISO, HIGH);
+  Wire.begin(XL_MOSI, XL_SCK, 400000);
+  xl.setI2CAddr(0x1B);
+  xl.begin(LIS331::USE_I2C); // Selects the bus to be used and sets
+                          //  the power up bit on the accelerometer.
+                          //  Also zeroes out all accelerometer
+                          //  registers that are user writable.
+
+  failsafe = !crsf.isLinkUp();
+  for(int i = 0; i < NUM_LEDS; i++)
+      leds[i] = CRGB::Purple;
+  FastLED.show();
+  xl.readAxes(x,y,z);
+  loopELRS();
   rmt_driver_uninstall(RMT_CHANNEL_0);
   rmt_driver_uninstall(RMT_CHANNEL_1);
   esc0.install(ESC0_PIN, RMT_CHANNEL_0);
   esc1.install(ESC1_PIN, RMT_CHANNEL_1);
-  // esc0.init();
-  // esc1.init();
-  // esc0.set3DMode(true);
-  // esc1.set3DMode(true);
-  // for (int i = 0; i < 5; i++)
-	// {
-	// 	esc0.beep(i);
-  //   esc1.beep(i);
-	// }
-
-  pinMode(XL_CS, OUTPUT);    // CS for SPI
-  digitalWrite(XL_CS, HIGH); // Make CS high
-  pinMode(XL_MOSI, OUTPUT);    // MOSI for SPI
-  pinMode(XL_MISO, INPUT);     // MISO for SPI
-  pinMode(XL_SCK, OUTPUT);    // SCK for SPI
-  SPI.begin();
-  xl.setSPICSPin(XL_CS);     // This MUST be called BEFORE .begin() so 
-                          //  .begin() can communicate with the chip
-  xl.begin(LIS331::USE_SPI); // Selects the bus to be used and sets
-                          //  the power up bit on the accelerometer.
-                          //  Also zeroes out all accelerometer
-                          //  registers that are user writable.
+  esc0.init();
+  esc1.init();
+  esc0.set3DMode(true);
+  esc1.set3DMode(true);
+  esc0.sendMotorStop();
+  esc1.sendMotorStop();
+  for (int i = 0; i < 5; i++)
+	{
+		esc0.beep(i);
+    esc1.beep(i);
+	}
 }
 
 void loop() {
@@ -90,13 +96,14 @@ void loop() {
   printChannels();
   if(failsafe)
     Serial.println("FAILSAFE!");
-  Serial.println("state: " + state);
-  Serial.print("Accel: ");
-  Serial.print(xl.convertToG(6,x));
-  Serial.print(", ");
-  Serial.print(xl.convertToG(6,y));
-  Serial.print(", ");
-  Serial.print(xl.convertToG(6,z));
+    Serial.print("state: ");
+    Serial.println(state);
+    Serial.print("Accel: ");
+    Serial.print(xl.convertToG(6,x));
+    Serial.print(", ");
+    Serial.print(xl.convertToG(6,y));
+    Serial.print(", ");
+    Serial.println(xl.convertToG(6,z));
   #endif
 
   //stuff to loop even in failsafe
@@ -108,9 +115,10 @@ void loop() {
     state = FAILSAFE;
     for(int i = 0; i < NUM_LEDS; i++)
       leds[i] = CRGB::Red;
-    return;
+    Serial.println("motors stopping");
     esc0.sendMotorStop();
     esc1.sendMotorStop();
+    return;
   }
   if(crsf.getChannel(5) > 1600) {
     state = MELTING;
@@ -125,7 +133,4 @@ void loop() {
     1 == 1;
   }
   //stuff to not loop if in failsafe
-
-  
-  
 }
