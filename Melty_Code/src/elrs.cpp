@@ -17,9 +17,9 @@ void loopELRS() {
     // Must call crsf.update() in loop() to process data
     crsf.update();
   
-    int snsVin = analogRead(PIN_SNS_VIN);
-    float batteryVoltage = ((float)snsVin * ADC_VLT / ADC_RES) * ((RESISTOR1 + RESISTOR2) / RESISTOR2);
-    sendBattTelem(batteryVoltage, 1.2, cap += 10, 50);
+    // int snsVin = analogRead(PIN_SNS_VIN);
+    // float batteryVoltage = ((float)snsVin * ADC_VLT / ADC_RES) * ((RESISTOR1 + RESISTOR2) / RESISTOR2);
+    // sendBattTelem(batteryVoltage, 1.2, cap += 10, 50);
 }
 
 static void sendBattTelem(float voltage, float current, float capacity, float remaining)
